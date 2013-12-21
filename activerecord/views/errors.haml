@@ -1,0 +1,4 @@
+-if @rabbit.errors.any?
+  %ul#errors
+  -@rabbit.errors.each do |error|
+    %li= error
