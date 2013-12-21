@@ -33,7 +33,7 @@ class App < Sinatra::Application
 
   put '/rabbits/:id' do
     @rabbit = Rabbit.find(params[:id])
-    if @rabbit.update_attributes(params[:rabbit])
+    if @rabbit.update(params[:rabbit])
       status 201
       redirect '/rabbits/' + params[:id]
     else
