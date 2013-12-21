@@ -25,13 +25,13 @@ class App < Sinatra::Application
   end
 
   get '/rabbits/edit/:id' do
-    @rabbit = Rabbit.find(params[:id])
+    @rabbit = Rabbit.find(id: params[:id])
     haml :edit
   end
 
   put '/rabbits/:id' do
-    @rabbit = Rabbit.find(params[:id])
-    if @rabbit.update(params[:rabbit])
+    @rabbit = Rabbit.find(id: params[:id])
+    if @rabbit.update(name: params["rabbit"]["name"], color: params["rabbit"]["color"], description: params["rabbit"]["description"], age: params["rabbit"]["age"])
       status 201
       redirect '/rabbits/' + params[:id]
     else
@@ -41,17 +41,17 @@ class App < Sinatra::Application
   end
 
   get '/rabbits/delete/:id' do
-    @rabbit = Rabbit.find(params[:id])
+    @rabbit = Rabbit.find(id: params[:id])
     haml :delete
   end
 
   delete '/rabbits/:id' do
-    Rabbit.find(params[:id]).destroy
+    Rabbit.find(id: params[:id]).destroy
     redirect '/rabbits'
   end
 
   get '/rabbits/:id' do
-    @rabbit = Rabbit.find(params[:id])
+    @rabbit = Rabbit.find(id: params[:id])
     haml :show
   end
 end
